@@ -6,14 +6,19 @@ import java.io.File;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author adam-bien.com
  */
 @Path("pings")
+@Produces(MediaType.TEXT_PLAIN)
+@Consumes(MediaType.TEXT_PLAIN)
 public class PingsResource {
 
     @Path("/echo/{echo}")
