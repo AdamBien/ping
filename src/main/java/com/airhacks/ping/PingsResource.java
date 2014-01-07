@@ -35,7 +35,7 @@ public class PingsResource {
         Set<Map.Entry<Object, Object>> entries = properties.entrySet();
         for (Map.Entry<Object, Object> property : entries) {
             retVal.append(property.getKey()).append(" -> ").append(property.getValue());
-            retVal.append(File.separatorChar);
+            retVal.append("<br>");
         }
         return retVal.toString();
     }
@@ -51,7 +51,7 @@ public class PingsResource {
             String name = nameClassPair.getName();
             String type = nameClassPair.getClassName();
             retVal.append(name).append(" -> ").append(type);
-            retVal.append(File.separatorChar);
+            retVal.append("<br>");
         }
         return retVal.toString();
     }
