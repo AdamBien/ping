@@ -2,10 +2,9 @@
  */
 package com.airhacks.ping;
 
-import java.io.File;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
@@ -32,9 +31,9 @@ public class PingsResource {
     public String systemProperties() {
         StringBuilder retVal = new StringBuilder();
         Properties properties = System.getProperties();
-        Set<Map.Entry<Object, Object>> entries = properties.entrySet();
-        for (Map.Entry<Object, Object> property : entries) {
-            retVal.append(property.getKey()).append(" -> ").append(property.getValue());
+        Set<String> propertyNames = properties.stringPropertyNames();
+        for (String propertyName : new TreeSet<>(propertyNames)) {
+            retVal.append(propertyName).append(" -> ").append(properties.getProperty(propertyName));
             retVal.append("<br>");
         }
         return retVal.toString();
