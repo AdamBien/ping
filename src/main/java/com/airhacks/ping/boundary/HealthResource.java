@@ -33,7 +33,14 @@ public class HealthResource {
     public JsonObject availableHeap() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("Available memory in mb", this.watch.availableMemoryInMB()).
-                add("Used memory in mb", this.watch.usedMemroyInMb());
+                add("Used memory in mb", this.watch.usedMemoryInMb());
         return builder.build();
     }
+
+    @GET
+    @Path("/os-info")
+    public JsonObject osInfo() {
+        return this.watch.osInfo();
+    }
+
 }

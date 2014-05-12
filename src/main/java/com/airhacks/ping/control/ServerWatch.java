@@ -3,10 +3,13 @@ package com.airhacks.ping.control;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
+import java.lang.management.OperatingSystemMXBean;
 import java.time.ZonedDateTime;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.json.Json;
+import javax.json.JsonObject;
 
 /**
  *
@@ -42,9 +45,20 @@ public class ServerWatch {
         return asMb(available);
     }
 
-    public double usedMemroyInMb() {
+    public double usedMemoryInMb() {
         MemoryUsage current = this.memoryMxBean.getHeapMemoryUsage();
         return asMb(current.getUsed());
+
+    }
+
+    public JsonObject osInfo() {
+        OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
+        return Json.createObjectBuilder().
+                add("System Load Average", osBean.getSystemLoadAverage()).
+                add("Available CPUs", osBean.getAvailableProcessors()).
+                add("Architecture", osBean.getArch()).
+                add("OS Name", osBean.getName()).
+                add("Version", osBean.getVersion()).build();
 
     }
 
