@@ -2,10 +2,12 @@
  */
 package com.airhacks.ping;
 
-import java.io.File;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
@@ -13,12 +15,15 @@ import javax.naming.NamingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author adam-bien.com
  */
 @Path("pings")
+@Produces(MediaType.APPLICATION_JSON)
 public class PingsResource {
 
     @GET
@@ -29,31 +34,27 @@ public class PingsResource {
 
     @GET
     @Path("/system-properties")
-    public String systemProperties() {
-        StringBuilder retVal = new StringBuilder();
+    public JsonObject systemProperties() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
         Properties properties = System.getProperties();
         Set<Map.Entry<Object, Object>> entries = properties.entrySet();
-        for (Map.Entry<Object, Object> property : entries) {
-            retVal.append(property.getKey()).append(" -> ").append(property.getValue());
-            retVal.append(File.separatorChar);
-        }
-        return retVal.toString();
+        entries.stream().forEach(e -> builder.add(String.valueOf(e.getKey()), String.valueOf(e.getValue())));
+        return builder.build();
     }
 
     @GET
     @Path("/jndi/{namespace}")
-    public String jndi(@PathParam("namespace") String namespace) throws NamingException {
-        StringBuilder retVal = new StringBuilder();
+    public JsonObject jndi(@PathParam("namespace") String namespace) throws NamingException {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
         InitialContext c = new InitialContext();
         NamingEnumeration<NameClassPair> list = c.list(namespace);
         while (list.hasMoreElements()) {
             NameClassPair nameClassPair = list.nextElement();
             String name = nameClassPair.getName();
             String type = nameClassPair.getClassName();
-            retVal.append(name).append(" -> ").append(type);
-            retVal.append(File.separatorChar);
+            builder.add(name, type);
         }
-        return retVal.toString();
+        return builder.build();
     }
 
 }
