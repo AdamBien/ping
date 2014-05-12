@@ -1,6 +1,6 @@
-##A WAR Ping For JavaEE 6+ Application Servers
+##A WAR Ping For JavaEE 7 Application Servers
 
-Tested with GlassFish, TomEE and Wildfly
+Tested with GlassFish, TomEE (JavaEE 6 only) and Wildfly
 
 ###Installation:
 
