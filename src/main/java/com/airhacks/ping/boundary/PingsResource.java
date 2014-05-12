@@ -1,6 +1,6 @@
 /*
  */
-package com.airhacks.ping;
+package com.airhacks.ping.boundary;
 
 import java.util.Map;
 import java.util.Properties;
