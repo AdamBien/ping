@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.airhacks</groupId>
     <artifactId>ping</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>war</packaging>
     <dependencies>
         <dependency>
@@ -19,7 +19,7 @@
         <connection>scm:git:git@github.com:AdamBien/ping.git</connection>
         <url>scm:git:git@github.com:AdamBien/ping.git</url>
         <developerConnection>scm:git:git@github.com:AdamBien/ping.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>ping-0.0.2</tag>
     </scm>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
