@@ -28,6 +28,7 @@ public class PingsResource {
 
     @GET
     @Path("/echo/{echo}")
+    @Produces(MediaType.TEXT_PLAIN)
     public String echo(@PathParam("echo") String param) {
         return param;
     }
