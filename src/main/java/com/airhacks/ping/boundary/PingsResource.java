@@ -43,6 +43,18 @@ public class PingsResource {
     }
 
     @GET
+    @Path("/environment-variables")
+    public JsonObject environmentVariables() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        Map<String, String> environment = System.getenv();
+        //T,A,R
+        environment.entrySet().
+                stream().
+                forEach(e -> builder.add(e.getKey(), e.getValue()));
+        return builder.build();
+    }
+
+    @GET
     @Path("/jndi/{namespace}")
     public JsonObject jndi(@PathParam("namespace") String namespace) throws NamingException {
         JsonObjectBuilder builder = Json.createObjectBuilder();
