@@ -12,9 +12,9 @@ import javax.json.JsonObjectBuilder;
  */
 public interface JsonCollectors {
 
-    public static Collector<Map.Entry<String, String>, ?, JsonObjectBuilder> toJsonBuilder() {
+    public static <T> Collector<Map.Entry<T, T>, ?, JsonObjectBuilder> toJsonBuilder() {
         return Collector.of(Json::createObjectBuilder, (t, u) -> {
-            t.add(u.getKey(), u.getValue());
+            t.add(String.valueOf(String.valueOf(u.getKey())), String.valueOf(u.getValue()));
         }, JsonCollectors::merge);
     }
 
