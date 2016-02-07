@@ -36,11 +36,9 @@ public class PingsResource {
     @GET
     @Path("/system-properties")
     public JsonObject systemProperties() {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
         Properties properties = System.getProperties();
         Set<Map.Entry<Object, Object>> entries = properties.entrySet();
-        entries.stream().forEach(e -> builder.add(String.valueOf(e.getKey()), String.valueOf(e.getValue())));
-        return builder.build();
+        return entries.stream().collect(JsonCollectors.toJsonBuilder()).build();
     }
 
     @GET
