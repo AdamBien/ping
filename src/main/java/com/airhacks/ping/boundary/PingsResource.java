@@ -2,6 +2,7 @@
  */
 package com.airhacks.ping.boundary;
 
+import com.airhacks.ping.control.JsonCollectors;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -45,13 +46,8 @@ public class PingsResource {
     @GET
     @Path("/environment-variables")
     public JsonObject environmentVariables() {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
         Map<String, String> environment = System.getenv();
-        //T,A,R
-        environment.entrySet().
-                stream().
-                forEach(e -> builder.add(e.getKey(), e.getValue()));
-        return builder.build();
+        return environment.entrySet().stream().collect(JsonCollectors.toJsonBuilder()).build();
     }
 
     @GET
