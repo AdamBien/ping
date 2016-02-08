@@ -1,6 +1,8 @@
 ##A WAR Ping For JavaEE 7 Application Servers
 
-Tested with GlassFish, TomEE (JavaEE 6 only) and Wildfly
+Ping exposes via a convenient URI basic health / jndi / jvm and OS information.
+
+Tested with GlassFish, Payara, TomEE, WLP and Wildfly
 
 ###Installation:
 
