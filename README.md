@@ -1,4 +1,4 @@
-##A WAR Ping For JavaEE 7 Application Servers
+##A 9 kB WAR Ping For JavaEE 7 Application Servers
 
 Ping exposes via a convenient URI basic health / jndi / jvm and OS information.
 
