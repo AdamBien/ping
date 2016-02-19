@@ -48,7 +48,10 @@ public class ServerWatch {
     public double usedMemoryInMb() {
         MemoryUsage current = this.memoryMxBean.getHeapMemoryUsage();
         return asMb(current.getUsed());
+    }
 
+    public String usedMemoryInMbAtStartTime() {
+        return this.heapUsageAtStartTime.toString();
     }
 
     public JsonObject osInfo() {

@@ -33,7 +33,8 @@ public class HealthResource {
     public JsonObject availableHeap() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("Available memory in mb", this.watch.availableMemoryInMB()).
-                add("Used memory in mb", this.watch.usedMemoryInMb());
+                add("Used memory in mb", this.watch.usedMemoryInMb()).
+                add("Memory at start time", this.watch.usedMemoryInMbAtStartTime());
         return builder.build();
     }
 
