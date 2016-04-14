@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -36,6 +37,12 @@ public class HealthResource {
                 add("Used memory in mb", this.watch.usedMemoryInMb()).
                 add("Memory at start time", this.watch.usedMemoryInMbAtStartTime());
         return builder.build();
+    }
+
+    @DELETE
+    @Path("/garbage")
+    public void gc() {
+        System.gc();
     }
 
     @GET
