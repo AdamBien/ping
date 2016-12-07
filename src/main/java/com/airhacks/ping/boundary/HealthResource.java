@@ -44,4 +44,9 @@ public class HealthResource {
         return this.watch.osInfo();
     }
 
+    @GET
+    @Path("/hostname")
+    public String hostname() {
+        return this.watch.getHostname();
+    }
 }
