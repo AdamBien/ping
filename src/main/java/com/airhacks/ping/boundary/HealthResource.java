@@ -1,6 +1,8 @@
 package com.airhacks.ping.boundary;
 
 import com.airhacks.ping.control.ServerWatch;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -28,6 +30,13 @@ public class HealthResource {
         return this.watch.getDateTime().toString();
     }
 
+    @GET
+    @Path("/uptime")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String uptime() {
+        return Long.toString(ChronoUnit.MILLIS.between(this.watch.getDateTime(), ZonedDateTime.now()));
+    }
+    
     @GET
     @Path("/current-memory")
     public JsonObject availableHeap() {
