@@ -1,0 +1,10 @@
+---
+applications:
+- name: elc-ping
+  memory: 512M
+  host: elc-ping-dev
+  domain: mybluemix.net
+  path: defaultServer
+  env:
+    JBP_CONFIG_LIBERTY: '[app_state: false, app_archive: {features: [webProfile-7.0]}]'
+    JBP_CONFIG_IBMJDK: '[version: 1.8.+]'
