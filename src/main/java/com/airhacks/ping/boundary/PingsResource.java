@@ -2,13 +2,15 @@
  */
 package com.airhacks.ping.boundary;
 
-import com.airhacks.ping.control.JsonCollectors;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
+import static java.util.stream.Collectors.toMap;
 import javax.json.Json;
+import static javax.json.Json.createValue;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+import javax.json.stream.JsonCollectors;
 import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
@@ -36,16 +38,23 @@ public class PingsResource {
     @GET
     @Path("/system-properties")
     public JsonObject systemProperties() {
+
         Properties properties = System.getProperties();
-        Set<Map.Entry<Object, Object>> entries = properties.entrySet();
-        return entries.stream().collect(JsonCollectors.toJsonBuilder()).build();
+        Map<String, JsonValue> map = properties.entrySet().
+                stream().
+                collect(toMap(k -> k.toString(), v -> createValue(v.getValue().toString())));
+        return map.entrySet().stream().collect(JsonCollectors.toJsonObject());
     }
 
     @GET
     @Path("/environment-variables")
     public JsonObject environmentVariables() {
-        Map<String, String> environment = System.getenv();
-        return environment.entrySet().stream().collect(JsonCollectors.toJsonBuilder()).build();
+        Map<String, JsonValue> environment
+                = System.getenv().
+                        entrySet().
+                        stream().
+                        collect(toMap(Map.Entry::getKey, v -> createValue(v.getValue())));
+        return environment.entrySet().stream().collect(JsonCollectors.toJsonObject());
     }
 
     @GET
