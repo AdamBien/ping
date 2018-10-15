@@ -4,6 +4,8 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.lang.management.OperatingSystemMXBean;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.ZonedDateTime;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -22,19 +24,32 @@ public class ServerWatch {
     private ZonedDateTime startTime;
     private MemoryUsage heapUsageAtStartTime;
     private MemoryMXBean memoryMxBean;
+    private String hostname;
 
     @PostConstruct
     public void initialize() {
         this.initializeStartTime();
         this.memoryMxBean = ManagementFactory.getMemoryMXBean();
         this.heapUsageAtStartTime = this.memoryMxBean.getHeapMemoryUsage();
-
+        this.lookupHostname();
     }
 
     void initializeStartTime() {
         this.startTime = ZonedDateTime.now();
     }
 
+    void lookupHostname() {
+        try {
+            this.hostname = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException ex) {
+            this.hostname = "<unknown> : " + ex.getMessage();
+        }
+    }
+    
+    public String getHostname() {
+        return hostname;
+    }
+    
     public ZonedDateTime getDateTime() {
         return this.startTime;
     }
